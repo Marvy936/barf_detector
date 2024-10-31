@@ -47,6 +47,6 @@ try:
 
         time.sleep(0.1)
 except KeyboardInterrupt:
-    print("Skript ended by user.")
+    print("Script ended by user.")
 finally:
     GPIO.cleanup()
