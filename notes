@@ -1,0 +1,83 @@
+Hardware used:
+
+Raspberry Pi Zero WH (Zero W with Headers)
+KY-037 sound sensor
+KY-024 hall sensor
+Logic converter 5V/3.3V 4-channel
+8GB MicroSD card
+Jumper cables
+N52 magnet
+
+0. Connection
+
+Logic converter:
+
+LV GND -> PIN 6 on Raspberry. (Ground)
+HV GND -> PIN 14 on Raspberry. (Ground)
+LV -> PIN 1 on Raspberry. (3.3V)
+HV -> PIN 2 on Raspberry. (5V)
+
+HALL sensor:
+
++ -> PIN 4 on Raspberry. (5V)
+G -> PIN 9 on Raspberry. (Ground)
+D0 -> LV2 on Logic Coverter then HV2 -> PIN 7 on Raspberry. (GPIO4)
+
+Sound sensor:
+
++ -> PIN 17 on Raspberry. (3.3V)
+G -> PIN 39 on Raspberry. (Ground)
+D0 -> LV1 on Logic Converter then HV1 -> PIN 4 on Raspberry. (5V)
+
+1. Download etcher and flash Raspberry OS Lite on SD card.
+https://www.balena.io/etcher
+https://www.raspberrypi.com/software/operating-systems/
+
+2. After flash we want to create few files.
+In main path /boot create just blank empty ssh file. (this will activate ssh on Rasp), then create authorized_keys file with your public key and then we need wpa_supplicant.conf for Wi-Fi settings.
+
+--------------------------------------------------------------------
+
+# wpa_supplicant.conf
+
+country=SK
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="Wi-Fi name"
+    psk="Wi-Fi password"
+}
+
+--------------------------------------------------------------------
+
+If your public key wasn't copied in first boot then copy it to /home/pi/.ssh/authorized_keys.
+
+ak sa pripajam cez wifi vytvorim subor s nazvom wpa_supplicant.conf
+
+country=SK
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="NazovVasejSiete"
+    psk="HesloVasejSiete"
+}
+
+3. Put SD card into Raspberry and boot it, Rasp will turn on when you plug in power cable.
+4. Find IP address of your Rasp in your router. If you can't find IP of Rasp try connect to raspberrypi hostname.
+5. SSH to your Raspberry.
+
+$ ssh pi@ip-address
+
+6. After connection run update and upgrades commands.
+
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get pip
+$ sudo apt-get install python3-rpi.gpio
+$ pip install pushbullet.py
+
+7. Create bark.py on your Raspberry and run it. It is all done. Tweak with sensors.
+
+
