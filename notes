@@ -78,6 +78,6 @@ $ sudo apt-get pip
 $ sudo apt-get install python3-rpi.gpio
 $ pip install pushbullet.py
 
-7. Create bark.py on your Raspberry and run it. It is all done. Tweak with sensors.
+7. Create bark.py on your Raspberry, insert pushbullet access token and run it. It is all done. Tweak with sensors.
 
 
